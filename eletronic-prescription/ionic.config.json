@@ -1,0 +1,7 @@
+{
+  "name": "'eletronic-prescription'",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
