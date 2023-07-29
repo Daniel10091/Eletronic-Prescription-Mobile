@@ -1,0 +1,170 @@
+<ion-content>
+  <div id="container" class="ion-justify-content-center ion-padding-top">
+    <ion-grid fixed>
+
+      <ion-row class="ion-align-items-center">
+        <ion-col size="8">
+          <ion-row class="ion-justify-content-center">
+            <div id="autentication-content">
+              <ion-row class="ion-justify-content-center">
+                <strong>Autenticação</strong>
+              </ion-row>
+              <ion-row>
+                <div class="autentication-info ion-text-center">
+                  <p class="ion-no-margin ion-margin-top">Bem-vindos ao sistema Prescrição Eletrônica.</p>
+                  <p class="ion-no-margin">Utilize as caixas abaixo para acessar o sistema.</p>
+                  <span *ngIf="isPharmacist === 'false'" class="ion-no-margin">Você pode utilizar os mesmos dados de acesso do CRM virtual.</span>
+                </div>
+              </ion-row>
+            </div>
+          </ion-row>
+        </ion-col>
+        <ion-col size="4">
+          <ion-row class="ion-justify-content-end">
+            <img alt="Prescrição Eletrônica" src="https://prescricao-hom.cfm.org.br/content/1b9324df41232c28dcabbf0ed557761f.png">
+          </ion-row>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="12">
+          <div id="login-options">
+            <ion-radio-group value="false" (ionChange)="onPharmacist($event)">
+              <ion-row>
+                <ion-col *ngFor="let item of radioList" class="ion-justify-content-center">
+                  <div class="login-option ion-align-items-center ion-justify-content-center">
+                    <ion-radio value="{{item.value}}"></ion-radio>
+                    <ion-label>Sou {{item.title}}</ion-label>
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ion-radio-group>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="12" id="login-form-container">
+
+          <!-- Login with digital certificate -->
+
+          <ion-row class="ion-justify-content-center login-span-title">
+            <div class="title">
+              <span></span>
+              <ion-label>Login com</ion-label>
+              <span></span>
+            </div>
+          </ion-row>
+          <ion-row class="ion-justify-content-center ion-margin-top login-with-certificate">
+            <ion-button shape="round" (click)="loginWithCertificate()">
+              <ion-icon name="cloud-upload"></ion-icon>
+              <ion-label>Certificado Digital</ion-label>
+            </ion-button>
+          </ion-row>
+          <ion-row class="ion-justify-content-center login-with-certificate">
+            <a class="certillion-user-manual" href="https://drive.google.com/file/d/1DjRtnh-8Itd4TTrGaztEO3ZgMYzaKZzP/view?usp=sharing" target="_blank">Manual do usuário Certillion</a>
+          </ion-row>
+          
+          <!-- Normal login -->
+
+          <ion-row class="ion-justify-content-center ion-margin-top login-span-title">
+            <div class="title">
+              <span></span>
+              <ion-label>ou</ion-label>
+              <span></span>
+            </div>
+          </ion-row>
+          <ion-row class="ion-justify-content-center normal-login">
+            <form action="" id="login-form-content" autocomplete="off">
+
+              <ion-grid class="ion-no-padding" fixed>
+                <ion-row class="input-area">
+                  <ion-col class="ion-no-padding" size="12">
+                    <ion-row class="ion-no-margin form-grid">
+                      <ion-col class="ion-no-padding input {{invalidLogin}}">
+                        <ion-label position="stacked">Login<span>*</span></ion-label>
+                        <!-- CPF or CRM field for Doctor -->
+                        <ion-input 
+                          *ngIf="isPharmacist === 'false'"
+                          type="number" 
+                          placeholder="Seu CPF ou CRM" 
+                          [value]="doctorLoginValue" 
+                          (ionInput)="onDoctorInput($event);onLoginInput($event);onValidateLogin()" 
+                          #ionInputElDoctor 
+                          autocomplete="off"
+                        ></ion-input>
+                        <!-- CPF or CRF field for Pharmacist -->
+                        <ion-input 
+                          *ngIf="isPharmacist === 'true'"
+                          type="number" 
+                          placeholder="Seu CPF ou CRF" 
+                          [value]="pharmacistLoginValue"
+                          (ionInput)="onPharmacistInput($event);onLoginInput($event);onValidateLogin()" 
+                          #ionInputElPharmacist 
+                          autocomplete="off"
+                        ></ion-input>
+                        <span class="input-alert">Campo obrigatório.</span>
+                      </ion-col>
+                      <ion-col class="input {{invalidUf}}" size="5">
+                        <ion-label position="stacked">UF<span>*</span></ion-label>
+                        <ion-select placeholder="Selecionar" (ionChange)="onUfChanged($event);onValidateLogin()">
+                          <ion-select-option *ngFor="let uf of ufs" [value]="[uf.value]">{{uf.title}}</ion-select-option>
+                        </ion-select>
+                        <span class="input-alert">Campo obrigatório.</span>
+                      </ion-col>
+                    </ion-row>
+                  </ion-col>
+                </ion-row>
+                <ion-row class="input-area">
+                  <ion-col class="ion-no-padding input {{invalidPassword}}" size="12">
+                    <ion-label position="stacked">Senha<span>*</span></ion-label>
+                    <ion-input type="password" placeholder="Informe sua senha" (ionInput)="onPasswordInput($event);onValidateLogin()" autocomplete="off"></ion-input>
+                    <span class="input-alert">Campo obrigatório.</span>
+                  </ion-col>
+                </ion-row>
+                <ion-row class="ion-text-center">
+                  <p class="ion-no-margin form-info">Os campos marcados com asterisco (*) são obrigatórios.</p>
+                </ion-row>
+                <ion-row class="ion-margin-top form-links">
+                  <ion-col size="12">
+                    <ion-row *ngIf="isPharmacist === 'true'" class="ion-justify-content-center ion-text-center">
+                      <a href="">Alterar dados cadastrais?</a>
+                    </ion-row>
+                    <ion-row class="ion-justify-content-center ion-text-center">
+                      <a href="">Cadastre-se</a>
+                    </ion-row>
+                    <ion-row class="ion-justify-content-center ion-text-center">
+                      <a href="">Esqueceu su senha?</a>
+                    </ion-row>
+                  </ion-col>
+                </ion-row>  
+                <ion-row class="ion-margin-top form-buttons">
+                  <ion-button expand="block" shape="round" (click)="login()" [disabled]="disableLoginButton">
+                    Entar
+                  </ion-button>
+                </ion-row>
+                <ion-row class="ion-justify-content-center ion-margin-top app-version">
+                  <span>Versão: v1.1.30 - 12/03/2023.</span>
+                </ion-row>
+                <ion-row class="ion-justify-content-center ion-align-items-center">
+                  <ion-col>
+                    <img src="https://prescricao-hom.cfm.org.br/content/daebd89f038168ac100ee4295306972e.png" alt="">
+                  </ion-col>
+                  <ion-col>
+                    <img src="https://prescricao-hom.cfm.org.br/content/834686a102758e60f3590dec17f3501f.png" alt="">
+                  </ion-col>
+                  <ion-col>
+                    <img src="https://prescricao-hom.cfm.org.br/content/9e36d49e12271feee2039db8ac0b002a.png" alt="">
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+
+            </form>
+          </ion-row>
+
+        </ion-col>
+      </ion-row>
+      
+    </ion-grid>
+  </div>
+</ion-content>

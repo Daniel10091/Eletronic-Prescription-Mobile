@@ -1,23 +1,33 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
-import { IonicModule } from '@ionic/angular';
+import { StatusBar } from '@capacitor/status-bar';
+import { NavController } from '@ionic/angular';
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
-  styleUrls: ['app.component.scss'],
-  standalone: true,
-  imports: [IonicModule, RouterLink, RouterLinkActive, CommonModule],
+  styleUrls: ['app.component.scss']
 })
 export class AppComponent {
+
   public appPages = [
-    { title: 'Inbox', url: '/folder/inbox', icon: 'mail' },
-    { title: 'Outbox', url: '/folder/outbox', icon: 'paper-plane' },
-    { title: 'Favorites', url: '/folder/favorites', icon: 'heart' },
-    { title: 'Archived', url: '/folder/archived', icon: 'archive' },
-    { title: 'Trash', url: '/folder/trash', icon: 'trash' },
-    { title: 'Spam', url: '/folder/spam', icon: 'warning' },
+    { title: 'Início', url: 'inicio', icon: 'home' },
+    { title: 'Pacientes', url: 'pacientes', icon: 'people' },
+    { title: 'Locais de Atendimento', url: 'locais-de-atendimento', icon: 'location' },
+    { title: 'Meus documentos médicos', url: 'meus-documentos-medicos', icon: 'documents' },
+    { title: 'Modelos de documentos médicos', url: 'modelos-de-documentos-medicos', icon: 'document-text' },
+    // { title: 'Sair', url: 'login', icon: 'exit' },
   ];
-  public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
-  constructor() {}
+  
+  constructor(private navController: NavController) { }
+
+  ionViewWillEnter() {
+    StatusBar.setBackgroundColor({ color: '#000000' });
+    // StatusBar.setStyle({ style: 'light' });
+  }
+
+  logout() {
+    localStorage.removeItem('token');
+    this.navController.navigateRoot(['login']);
+  }
+
 }

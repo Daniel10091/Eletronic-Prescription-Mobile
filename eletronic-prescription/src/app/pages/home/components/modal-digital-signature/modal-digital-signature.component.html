@@ -1,0 +1,76 @@
+<!-- <ion-modal #modal trigger="modal-digital-signature" [canDismiss]="canDismiss" [presentingElement]="presentingElement">
+  <ng-template>
+  </ng-template>
+</ion-modal> -->
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Assinatura Digital</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cancel()">
+        Fechar
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content id="modal-content" class="ion-padding-vertical">
+
+  <div class="doctor-name ion-padding-horizontal ion-text-uppercase">Daniel Aguiar</div>
+  
+  <ion-grid fixed class="form-container ion-no-padding ion-padding-horizontal">
+    <ion-row class="ion-margin-top">
+      <ion-col size="12">
+        <div class="input">
+          <ion-select interface="action-sheet" placeholder="Selecione o tipo de assinatura" (ionChange)="onSignatureTypeChange($event)" cancelText="Cancelar">
+            <ion-select-option *ngFor="let signatureType of signatureTypes" [value]="signatureType.value">{{signatureType.title}}</ion-select-option>
+          </ion-select>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-margin-top">
+      <ion-col size="12">
+        <div class="input">
+          <ion-select interface="action-sheet" placeholder="Selecione a duração da sessão" (ionChange)="onSignatureSectionDurationChange($event)" cancelText="Cancelar">
+            <ion-select-option *ngFor="let signatureSectionDuration of signatureSectionDurations" [value]="signatureSectionDuration.value">{{signatureSectionDuration.title}}</ion-select-option>
+          </ion-select>
+        </div>
+        <span class="ion-margin-top">Ao confirmar, você autoriza a aplicação a realizar assinatura com o seu certificado e ajustar o tempo de interação com o sistema.</span>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid fixed class="info-container ion-no-padding ion-padding-horizontal">
+    <ion-row class="ion-margin-top">
+      <ion-col size="12">
+        <p class="ion-no-margin"><span>Atenção:</span> Caso seu certificado digital seja A3 (smartcard/token), deve-se instalar o 'Assinador-Certillion'. Caso seu certificado digital seja em NUVEM não há necessidade desta instalação.</p>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-margin-top">
+      <ion-col size="12">
+        <p class="ion-no-margin">Acesse o link para realizar download: <a href="https://download.certillion.com" target="_blank" rel="noopener noreferrer">https://download.certillion.com</a>.</p>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-margin-top">
+      <ion-col size="12">
+        <p class="ion-no-margin">Download do manual do usuário Certillion: <a href="https://drive.google.com/file/d/1DjRtnh-8Itd4TTrGaztEO3ZgMYzaKZzP/view" target="_blank" rel="noopener noreferrer">Clique Aqui</a>.</p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <!-- <div class="border ion-margin-top"></div> -->
+
+  <ion-grid fixed class="buttons-container ion-no-padding ion-padding-horizontal ion-margin-top">
+    <ion-row class="ion-padding-top">
+      <ion-col size="6">
+        <ion-button (click)="cancel()" expand="block" fill="outline" shape="round">
+          Cancelar
+        </ion-button>
+      </ion-col>
+      <ion-col size="6">
+        <ion-button (click)="confirm()" [disabled]="!canConfirm" expand="block" fill="solid" shape="round">
+          Confirmar
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  
+</ion-content>

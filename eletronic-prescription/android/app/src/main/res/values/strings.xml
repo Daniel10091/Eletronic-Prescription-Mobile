@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">\'eletronic-prescription\'</string>
+    <string name="title_activity_main">\'eletronic-prescription\'</string>
+    <string name="package_name">eletronic.prescription</string>
+    <string name="custom_url_scheme">eletronic.prescription</string>
+</resources>
