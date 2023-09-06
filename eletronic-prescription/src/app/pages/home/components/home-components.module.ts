@@ -5,7 +5,7 @@ import { IonicModule } from '@ionic/angular';
 
 @NgModule({
   declarations: [
-    ModalDigitalSignatureComponent
+    // ModalDigitalSignatureComponent
   ],
   imports: [
     CommonModule, 

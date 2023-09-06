@@ -1,11 +1,19 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { AlertController, CheckboxCustomEvent, IonInput, LoadingController, NavController, SelectCustomEvent } from '@ionic/angular';
+import { BrowserModule } from '@angular/platform-browser';
+import { AlertController, CheckboxCustomEvent, IonInput, IonicModule, LoadingController, NavController, SelectCustomEvent } from '@ionic/angular';
 import { LoginService } from 'src/app/core/services/login/login.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
-  styleUrls: ['./login.page.scss']
+  styleUrls: ['./login.page.scss'],
+  standalone: true,
+  imports: [
+    CommonModule, 
+    BrowserModule, 
+    IonicModule, 
+  ],
 })
 export class LoginPage implements OnInit {
 

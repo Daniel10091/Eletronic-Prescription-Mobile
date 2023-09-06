@@ -1,12 +1,20 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { CheckboxCustomEvent, ModalController } from '@ionic/angular';
+import { BrowserModule } from '@angular/platform-browser';
+import { CheckboxCustomEvent, IonicModule, ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-modal-digital-signature',
   templateUrl: './modal-digital-signature.component.html',
   styleUrls: ['./modal-digital-signature.component.scss'],
+  standalone: true,
+  imports: [
+    CommonModule, 
+    BrowserModule, 
+    IonicModule, 
+  ],
 })
-export class ModalDigitalSignatureComponent  implements OnInit {
+export class ModalDigitalSignatureComponent implements OnInit {
 
   canDismiss: boolean = true;
   presentingElement: any = null;

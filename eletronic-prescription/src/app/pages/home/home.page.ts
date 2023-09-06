@@ -1,12 +1,20 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Browser } from '@capacitor/browser';
-import { AnimationController, CheckboxCustomEvent, IonToggle, ModalController, NavController } from '@ionic/angular';
+import { AnimationController, CheckboxCustomEvent, IonToggle, IonicModule, ModalController, NavController } from '@ionic/angular';
 import { ModalDigitalSignatureComponent } from './components/modal-digital-signature/modal-digital-signature.component';
+import { CommonModule } from '@angular/common';
+import { BrowserModule } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
-  styleUrls: ['./home.page.scss']
+  styleUrls: ['./home.page.scss'],
+  standalone: true,
+  imports: [
+    CommonModule, 
+    BrowserModule, 
+    IonicModule, 
+  ],
 })
 export class HomePage implements OnInit {
 
